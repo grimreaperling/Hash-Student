@@ -203,6 +203,21 @@ public:
     const M& at(const K& key) const;
 
     /*
+     * A method to return the lenth to search a paticular value in the hashmap
+     * in order to mezsure the quality of the particular hash function.
+     *
+     * Parameter: key of type K.
+     * Return value: the lenth of the search in the according slot of the key.
+     *
+     * Usage:
+     *      int lenth = map.findLenth("grimreaperling");
+     *
+     * Exceptions: if the current key you search for is not in the hash map it will
+     * return 0 blindly and check nothing.
+     */
+     int findLenth(const K& key) const;
+
+    /*
     * Removes all K/M pairs the HashMap.
     *
     * Parameters: none

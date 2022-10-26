@@ -52,8 +52,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = Main.cpp 
-OBJECTS       = Main.o
+SOURCES       = City.cpp \
+		Main.cpp 
+OBJECTS       = City.o \
+		Main.o
 DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
 		/opt/homebrew/Cellar/qt/6.3.2/share/qt/mkspecs/common/unix.conf \
@@ -327,9 +329,12 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/lex.prf \
 		/opt/homebrew/share/qt/mkspecs/features/silent.prf \
-		HashMap.pro hashmap.h \
+		HashMap.pro City.h \
+		hashmap.h \
 		hashmap_iterator.h \
-		student.h Main.cpp
+		student.h \
+		xxhash32.h City.cpp \
+		Main.cpp
 QMAKE_TARGET  = HashMap
 DESTDIR       = 
 TARGET        = HashMap.app/Contents/MacOS/HashMap
@@ -943,8 +948,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents hashmap.h hashmap_iterator.h student.h $(DISTDIR)/
-	$(COPY_FILE) --parents hashmap.cpp Main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents City.h hashmap.h hashmap_iterator.h student.h xxhash32.h $(DISTDIR)/
+	$(COPY_FILE) --parents City.cpp hashmap.cpp Main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1003,9 +1008,13 @@ compiler_clean: compiler_moc_predefs_clean
 
 ####### Compile
 
+City.o: City.cpp City.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o City.o City.cpp
+
 Main.o: Main.cpp hashmap.h \
 		hashmap_iterator.h \
 		hashmap.cpp \
+		xxhash32.h \
 		student.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Main.o Main.cpp
 

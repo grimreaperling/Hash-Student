@@ -53,7 +53,24 @@ const M& HashMap<K, M, H>::at(const K& key) const {
     return static_cast<const M&>(const_cast<HashMap<K, M, H>*>(this)->at(key));
 }
 
-
+template <typename K, typename M, typename H>
+int HashMap<K, M, H>::findLenth(const K& key) const {
+    int lenth = 0;
+    size_t index = _hash_function(key) % bucket_count();
+    node* curr = _buckets_array[index];
+    node* prev = nullptr; 
+    while (curr != nullptr) {
+        const auto& [found_key, found_mapped] = curr->value;
+        if (found_key == key) {
+            return lenth;
+        }
+        prev = curr;
+        curr = curr->next;
+        lenth++;
+    }
+    return 0;
+} 
+    
 template <typename K, typename M, typename H>
 bool HashMap<K, M, H>::contains(const K& key) const {
     return find_node(key).second != nullptr;
