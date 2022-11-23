@@ -286,12 +286,8 @@ HashMap<K, M, H>::HashMap(const HashMap<K, M, H>& other) :
     _hash_function{other._hash_function},
     _buckets_array(other.bucket_count(), nullptr) {
 
-    for (size_t i = 0; i < bucket_count(); i++) {
-        node* curr = other._buckets_array[i];
-        while (curr != nullptr) {
-            insert(curr->value);
-            curr = curr->next;
-        }
+    for (auto pair : other) {
+        insert(pair);
     }
 }
 
@@ -301,12 +297,8 @@ HashMap<K, M, H>& HashMap<K, M, H>::operator=(const HashMap<K, M, H>& rhs) {
         _hash_function = rhs._hash_function;
         clear();                       
         _buckets_array.resize(rhs.bucket_count());
-        for (size_t i = 0; i < bucket_count(); i++) {
-            node* curr = rhs._buckets_array[i];
-            while (curr != nullptr) {
-                insert(curr->value);
-                curr = curr->next;
-            }
+        for (auto pair : rhs) {
+            insert(pair);
         }
     }
     return *this;

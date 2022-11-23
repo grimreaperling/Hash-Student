@@ -270,7 +270,6 @@ public:
     * Usage:
     *      HashMap<int, std::string> map;
     *      auto [iter1, insert1] = map.insert({3, "Avery"}); // inserts {3, "Avery"}, iter1 points to that element, insert1 = true
-    *      auto [iter2, insert2] = map.insert({3, "Anna"});  // no-op, iter2 points to {3, "Avery"}, insert2 = false
     *
     * Complexity: O(1) amortized average case
     */
@@ -288,8 +287,6 @@ public:
     *
     * Complexity: O(1) amortized average case, O(N) worst case, N = number of elements
     *
-    * Notes: a call to erase should maintain the order of existing iterators,
-    * other than iterators to the erased K/M element.
     */
     bool erase(const K& key);
 
@@ -306,8 +303,6 @@ public:
     *
     * Complexity: O(1) amortized average case, O(N) worst case, N = number of elements
     *
-    * Notes: a call to erase should maintain the order of existing iterators,
-    * other than iterators to the erased K/M element.
     */
     iterator erase(const_iterator pos);
 
@@ -325,15 +320,7 @@ public:
     *
     * Complexity: O(N) amortized average case, O(N^2) worst case, N = number of elements
     *
-    * Notes: our minimal HashMap implementation does not support automatic rehashing, but
-    * std::unordered_map will automatically rehash, even if you rehash to
-    * a very small number of buckets. For this reason, std::unordered_map.rehash(0)
-    * is allowed and forces an unconditional rehash. We will not require this behavior.
-    * If you want, you could implement this.
     *
-    * Previously, this function was part of the assignment. However, it's a fairly challenging
-    * linked list problem, and students had a difficult time finding an elegant solution.
-    * Instead, we will ask short answer questions on this function instead.
     */
     void rehash(size_t new_buckets);
 
@@ -446,7 +433,7 @@ public:
     M& operator[](const K& key);
 
     /* Milestone 2 headers (you need to declare these) */
-    // TODO: declare headers for copy constructor/assignment, move constructor/assignment
+
     /* 
      * Initialize using copy consturctor
      * Creat a HashMap by copying all the element from the parameter.
