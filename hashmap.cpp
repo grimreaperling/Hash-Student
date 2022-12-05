@@ -140,11 +140,6 @@ typename HashMap<K, M, H>::iterator HashMap<K, M, H>::begin() {
 
 template <typename K, typename M, typename H>
 typename HashMap<K, M, H>::const_iterator HashMap<K, M, H>::begin() const {
-    // This is called the static_cast/const_cast trick, which allows us to reuse
-    // the non-const version of find to implement the const version.
-    // The idea is to cast this so it's pointing to a non-const HashMap, which
-    // calls the overload above (and prevent infinite recursion).
-    // Also note that we are calling the conversion operator in the iterator class!
     return static_cast<const_iterator>(const_cast<HashMap<K, M, H>*>(this)->begin());
 }
 
